@@ -1,0 +1,1018 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>زين نوت | منصة تعليمية متكاملة</title>
+    <meta name="description" content="منصة تعليمية عربية للطلاب تقدم مواد دراسية، مدرس ذكي، نقاط ومكافآت، وتفاعل كامل." />
+    <style>
+      :root {
+        --bg: #061724;
+        --bg-soft: #0d1d2d;
+        --bg-panel: rgba(17, 27, 39, 0.92);
+        --card: rgba(17, 24, 39, 0.75);
+        --line: rgba(255,255,255,0.08);
+        --line-strong: rgba(255,255,255,0.14);
+        --text: #ecf4ff;
+        --muted: #b7c7db;
+        --blue: #5ea5ff;
+        --blue-2: #7ea7ff;
+        --gold: #f4c76b;
+        --gold-2: #ffbf69;
+        --green: #7de7b2;
+        --pink: #f5a0d7;
+        --purple: #b18cff;
+        --orange: #ff9c66;
+        --shadow: 0 24px 60px rgba(0, 0, 0, 0.38);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Tahoma", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(94,165,255,0.16), transparent 25%),
+          radial-gradient(circle at bottom left, rgba(244,199,107,0.15), transparent 25%),
+          var(--bg);
+        color: var(--text);
+      }
+
+      a { color: inherit; text-decoration: none; }
+      button, input, select { font: inherit; }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 18px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 40;
+        background: rgba(6, 23, 36, 0.76);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 78px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--gold), var(--orange));
+        display: grid;
+        place-items: center;
+        color: #0d1725;
+        font-weight: 900;
+        box-shadow: 0 12px 30px rgba(244,199,107,0.35);
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .nav a {
+        color: var(--muted);
+        padding: 10px 14px;
+        border-radius: 10px;
+        transition: 0.2s ease;
+      }
+
+      .nav a:hover,
+      .nav a.active {
+        color: var(--text);
+        background: rgba(255,255,255,0.04);
+      }
+
+      .header-actions {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .btn {
+        border: 0;
+        border-radius: 12px;
+        cursor: pointer;
+        padding: 12px 16px;
+        font-weight: 700;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      .btn:hover { transform: translateY(-1px); }
+      .btn:active { transform: translateY(0); }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--gold), #ffae65);
+        color: #0f1d2d;
+        box-shadow: 0 14px 28px rgba(244,199,107,0.26);
+      }
+
+      .btn-secondary {
+        background: rgba(255,255,255,0.04);
+        color: var(--text);
+        border: 1px solid var(--line);
+      }
+
+      .hero {
+        padding: 52px 0 28px;
+      }
+
+      .hero-panel {
+        background: linear-gradient(135deg, rgba(12,26,39,0.94), rgba(15,27,39,0.96));
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 36px 26px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        position: relative;
+      }
+
+      .hero-panel::before,
+      .hero-panel::after {
+        content: "";
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(60px);
+        opacity: 0.4;
+      }
+
+      .hero-panel::before {
+        width: 220px;
+        height: 220px;
+        background: rgba(94,165,255,0.2);
+        top: -80px;
+        right: -40px;
+      }
+
+      .hero-panel::after {
+        width: 220px;
+        height: 220px;
+        background: rgba(244,199,107,0.18);
+        bottom: -60px;
+        left: -30px;
+      }
+
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        border: 1px solid rgba(244,199,107,0.24);
+        background: rgba(244,199,107,0.08);
+        color: var(--gold);
+        padding: 8px 14px;
+        border-radius: 999px;
+        font-size: 13px;
+      }
+
+      h1 {
+        margin: 18px 0 14px;
+        font-size: clamp(2.2rem, 5vw, 4.4rem);
+        line-height: 1.14;
+      }
+
+      .hero-text {
+        color: var(--muted);
+        font-size: 1.08rem;
+        max-width: 760px;
+        line-height: 2;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(140px, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .stat {
+        background: rgba(255,255,255,0.03);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 20px 16px;
+        text-align: center;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.8rem;
+        margin-bottom: 6px;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      section {
+        padding: 26px 0;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: clamp(1.7rem, 3vw, 2.5rem);
+      }
+
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .subject-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(220px, 1fr));
+        gap: 18px;
+      }
+
+      .subject-card {
+        background: linear-gradient(180deg, rgba(21,31,43,0.9), rgba(14,24,37,0.9));
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 18px 18px 16px;
+        box-shadow: 0 10px 22px rgba(0,0,0,0.14);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        cursor: pointer;
+      }
+
+      .subject-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 34px rgba(0,0,0,0.18);
+      }
+
+      .subject-icon {
+        width: 54px;
+        height: 54px;
+        border-radius: 16px;
+        display: grid;
+        place-items: center;
+        font-size: 1.8rem;
+        margin-bottom: 16px;
+      }
+
+      .subject-card h3 {
+        margin: 0 0 8px;
+        font-size: 1.3rem;
+      }
+
+      .subject-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .subject-progress {
+        margin-top: 18px;
+        height: 10px;
+        background: rgba(255,255,255,0.06);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .subject-progress span {
+        display: block;
+        height: 100%;
+        border-radius: inherit;
+      }
+
+      .feature-banner {
+        background: linear-gradient(135deg, rgba(77,120,255,0.12), rgba(244,199,107,0.1), rgba(10,20,33,0.88));
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 30px 24px;
+        text-align: center;
+      }
+
+      .feature-badge {
+        width: 74px;
+        height: 74px;
+        margin: 0 auto 20px;
+        border-radius: 22px;
+        display: grid;
+        place-items: center;
+        font-size: 2rem;
+        background: linear-gradient(135deg, var(--gold), #fe9e6d);
+        color: #101e2d;
+        box-shadow: 0 18px 30px rgba(244,199,107,0.18);
+      }
+
+      .feature-banner h2 {
+        margin: 0 0 14px;
+        font-size: clamp(1.9rem, 2vw, 2.8rem);
+      }
+
+      .feature-banner p {
+        max-width: 760px;
+        margin: 0 auto;
+        color: var(--muted);
+        line-height: 2;
+      }
+
+      .feature-pills {
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        margin-top: 20px;
+      }
+
+      .feature-pills span {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 9px 14px;
+      }
+
+      .dashboard {
+        display: grid;
+        grid-template-columns: 1.25fr 0.75fr;
+        gap: 18px;
+      }
+
+      .panel {
+        background: rgba(15,24,35,0.8);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 22px;
+      }
+
+      .zodiac-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .zodiac-badge {
+        width: 72px;
+        height: 72px;
+        border-radius: 20px;
+        display: grid;
+        place-items: center;
+        font-size: 2.2rem;
+        background: linear-gradient(135deg, rgba(94,165,255,0.1), rgba(244,199,107,0.18));
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .points-box {
+        margin-top: 24px;
+      }
+
+      .points-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .progress-bar {
+        height: 14px;
+        background: rgba(255,255,255,0.06);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .progress-bar span {
+        display: block;
+        height: 100%;
+        width: 76%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, var(--gold), #ffb26a);
+      }
+
+      .mini-list {
+        display: grid;
+        gap: 12px;
+        margin-top: 20px;
+      }
+
+      .mini-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+
+      .mini-tag {
+        width: 34px;
+        height: 34px;
+        display: grid;
+        place-items: center;
+        border-radius: 10px;
+        background: rgba(94,165,255,0.12);
+      }
+
+      .footer {
+        padding: 30px 0 50px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        z-index: 100;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        background: rgba(4, 9, 15, 0.74);
+        padding: 18px;
+      }
+
+      .modal.open {
+        display: flex;
+      }
+
+      .modal-panel {
+        width: min(620px, 100%);
+        border-radius: 26px;
+        border: 1px solid var(--line);
+        background: linear-gradient(180deg, rgba(14,22,31,0.97), rgba(9,18,26,0.97));
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .modal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .modal-body {
+        padding: 22px;
+      }
+
+      .switch {
+        display: flex;
+        gap: 8px;
+        padding: 6px;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.04);
+        border-radius: 12px;
+        margin-bottom: 18px;
+      }
+
+      .switch button {
+        flex: 1;
+        border: 0;
+        border-radius: 10px;
+        background: transparent;
+        color: var(--muted);
+        font-weight: 700;
+        padding: 10px 12px;
+        cursor: pointer;
+      }
+
+      .switch button.active {
+        background: linear-gradient(135deg, var(--blue), #7a8dff);
+        color: white;
+      }
+
+      .field {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .field label {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .field input,
+      .field select {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.02);
+        border-radius: 12px;
+        color: var(--text);
+        padding: 12px 14px;
+      }
+
+      .field input::placeholder { color: rgba(255,255,255,0.42); }
+
+      .profile-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(160px, 1fr));
+        gap: 16px;
+      }
+
+      .chat-box {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        min-height: 540px;
+      }
+
+      .chat-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding-bottom: 14px;
+      }
+
+      .chat-body {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px;
+        overflow: auto;
+        display: grid;
+        gap: 12px;
+      }
+
+      .msg {
+        max-width: 82%;
+        border-radius: 14px;
+        padding: 10px 12px;
+        line-height: 1.8;
+      }
+
+      .msg.ai {
+        background: rgba(94,165,255,0.1);
+        border: 1px solid rgba(94,165,255,0.18);
+        margin-left: auto;
+      }
+
+      .msg.user {
+        background: rgba(244,199,107,0.1);
+        border: 1px solid rgba(244,199,107,0.2);
+      }
+
+      .chat-compose {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .chat-compose input {
+        flex: 1;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.02);
+        border-radius: 12px;
+        color: var(--text);
+        padding: 12px 14px;
+      }
+
+      .small {
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 920px) {
+        .subject-grid {
+          grid-template-columns: repeat(2, minmax(180px, 1fr));
+        }
+
+        .dashboard {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 670px) {
+        .topbar-inner {
+          flex-wrap: wrap;
+          padding: 12px 0;
+        }
+
+        .nav {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .header-actions {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .subject-grid,
+        .stats,
+        .profile-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand">
+          <div class="brand-mark">Z</div>
+          <div>
+            <div style="font-size: 1.1rem;">زين نوت</div>
+            <div style="font-size: 0.72rem; color: var(--muted);">منصة تعليمية ذكية</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="التنقل">
+          <a href="#home" class="active">الرئيسية</a>
+          <a href="#subjects">المواد</a>
+          <a href="#ai-teacher">المدرس الذكي</a>
+          <a href="#points">نقاطي</a>
+          <a href="#account">حسابي</a>
+        </nav>
+
+        <div class="header-actions">
+          <button class="btn btn-secondary" id="loginBtn">تسجيل الدخول</button>
+          <button class="btn btn-primary" id="startBtn">ابدأ الآن</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="home" class="container">
+      <section class="hero">
+        <div class="hero-panel">
+          <div class="hero-content">
+            <div class="hero-badge">🎓 المنصة حالياً للصف الأول الإعدادي</div>
+            <h1>تعلم بمتعة، وارتقِ بثقة.</h1>
+            <p class="hero-text">
+              منصة زين نوت التعليمية تقدم دروساً ممتعة، مدرسًا ذكيًا، اختبارات ومراجعات، ومكافآت تحفّز
+              الطالب على التفوق. كل شيء مصمم ليخدم رحلتك التعليمية بطريقة بسيطة واحترافية.
+            </p>
+
+            <div class="hero-actions">
+              <button class="btn btn-primary" id="heroStartBtn">ابدأ رحلتك</button>
+              <button class="btn btn-secondary" id="profileBtn">إعداد الملف الشخصي</button>
+            </div>
+
+            <div class="stats">
+              <div class="stat">
+                <strong>6</strong>
+                <span>مواد دراسية</span>
+              </div>
+              <div class="stat">
+                <strong>112</strong>
+                <span>دروس متاحة</span>
+              </div>
+              <div class="stat">
+                <strong>15</strong>
+                <span>مسابقات</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="subjects">
+        <div class="section-head">
+          <div>
+            <h2>المواد الدراسية</h2>
+            <p>اختر المادة المناسبة لك وابدأ التعلم الآن</p>
+          </div>
+          <button class="btn btn-secondary">عرض الكل</button>
+        </div>
+
+        <div class="subject-grid" id="subjectGrid"></div>
+      </section>
+
+      <section id="ai-teacher">
+        <div class="feature-banner">
+          <div class="feature-badge">🤖</div>
+          <h2>المدرس الذكي</h2>
+          <p>
+            اسأل أي سؤال في أي مادة، وستحصل على شرح مبسط، أمثلة واضحة، ومراجعة ذكية تساعدك على
+            الفهم بسرعة وتزيد ثقتك بنفسك.
+          </p>
+          <div class="feature-pills">
+            <span>شرح فوري</span>
+            <span>أسئلة وأجوبة</span>
+            <span>مراجعة ذكية</span>
+          </div>
+          <div class="hero-actions" style="justify-content: center; margin-top: 28px;">
+            <button class="btn btn-primary" id="openChatBtn">ابدأ المحادثة</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="points" class="dashboard">
+        <div class="panel">
+          <div class="section-head" style="margin-bottom: 12px;">
+            <div>
+              <h2 style="font-size: 1.6rem;">ملفي الشخصي</h2>
+            </div>
+          </div>
+
+          <div class="zodiac-box">
+            <div>
+              <div class="small">الاسم</div>
+              <div style="font-size: 1.45rem; font-weight: 800; margin-top: 6px;">أحمد محمد</div>
+            </div>
+            <div class="zodiac-badge">♒</div>
+          </div>
+
+          <div class="points-box">
+            <div class="points-top">
+              <span>نقاطي</span>
+              <strong>1,240</strong>
+            </div>
+            <div class="progress-bar"><span></span></div>
+            <div class="small" style="margin-top: 10px;">76% من هدف المستوى التالي</div>
+          </div>
+        </div>
+
+        <div class="panel" id="account">
+          <div class="section-head" style="margin-bottom: 12px;">
+            <div>
+              <h2 style="font-size: 1.6rem;">أحدث النشاط</h2>
+            </div>
+          </div>
+
+          <div class="mini-list">
+            <div class="mini-item">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="mini-tag">📘</div>
+                <div>
+                  <strong>حل درس</strong><br />
+                  <span class="small">رياضيات</span>
+                </div>
+              </div>
+              <span>+60</span>
+            </div>
+
+            <div class="mini-item">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="mini-tag">🏆</div>
+                <div>
+                  <strong>منافسة</strong><br />
+                  <span class="small">لغة عربية</span>
+                </div>
+              </div>
+              <span>+120</span>
+            </div>
+
+            <div class="mini-item">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="mini-tag">💡</div>
+                <div>
+                  <strong>سؤال جديد</strong><br />
+                  <span class="small">المدرس الذكي</span>
+                </div>
+              </div>
+              <span>+25</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>© 2026 زين نوت — جميع الحقوق محفوظة</div>
+        <div>منصة تعليمية عربية متكاملة</div>
+      </div>
+    </footer>
+
+    <div class="modal" id="authModal" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-head">
+          <h3 style="margin: 0;">تسجيل الدخول</h3>
+          <button class="btn btn-secondary" data-close="authModal" style="width: auto;">إغلاق</button>
+        </div>
+        <div class="modal-body">
+          <div class="switch">
+            <button class="active" data-mode="login">دخول</button>
+            <button data-mode="signup">تسجيل</button>
+          </div>
+
+          <div class="field" id="fullNameField" style="display: none;">
+            <label>الاسم الكامل</label>
+            <input type="text" placeholder="اكتب اسمك بالكامل" />
+          </div>
+
+          <div class="field">
+            <label>البريد الإلكتروني</label>
+            <input type="email" placeholder="name@example.com" />
+          </div>
+
+          <div class="field">
+            <label>كلمة المرور</label>
+            <input type="password" placeholder="••••••••" />
+          </div>
+
+          <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" id="submitAuthBtn">تأكيد</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="profileModal" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-head">
+          <h3 style="margin: 0;">إعداد الملف الشخصي</h3>
+          <button class="btn btn-secondary" data-close="profileModal" style="width: auto;">إغلاق</button>
+        </div>
+        <div class="modal-body">
+          <div class="profile-grid">
+            <div class="field">
+              <label>الاسم الكامل</label>
+              <input type="text" value="أحمد محمد" />
+            </div>
+            <div class="field">
+              <label>الصف الدراسي</label>
+              <select>
+                <option>الأول الإعدادي</option>
+                <option>الثاني الإعدادي</option>
+                <option>الثالث الإعدادي</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>تاريخ الميلاد</label>
+              <input type="date" value="2014-05-12" />
+            </div>
+            <div class="field">
+              <label>نوع الحساب</label>
+              <select>
+                <option>طالب</option>
+                <option>ولي أمر</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; margin-top: 20px;">حفظ البيانات</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="chatModal" aria-hidden="true">
+      <div class="modal-panel" style="width: min(720px, 100%);">
+        <div class="modal-head">
+          <h3 style="margin: 0;">المدرس الذكي</h3>
+          <button class="btn btn-secondary" data-close="chatModal" style="width: auto;">إغلاق</button>
+        </div>
+        <div class="modal-body chat-box">
+          <div class="chat-header">
+            <div>محادثة تعليمية ذكية</div>
+            <div class="small">متصل الآن</div>
+          </div>
+
+          <div class="chat-body" id="chatBody">
+            <div class="msg ai">أهلاً! أنا المدرَّس الذكي. كيف أستطيع مساعدتك اليوم؟</div>
+            <div class="msg user">أريد شرح درس الجبر البسيط.</div>
+            <div class="msg ai">بالتأكيد! الجبر يعني استخدام الرموز بدل الأرقام في بعض المعادلات. مثال: 2x + 3 = 11 → اطرح 3 ثم اقسم على 2 → x = 4.</div>
+          </div>
+
+          <div class="chat-compose">
+            <input type="text" id="chatInput" placeholder="اكتب سؤالك هنا..." />
+            <button class="btn btn-primary" id="sendChatBtn">إرسال</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const subjects = [
+        { name: 'رياضيات', emoji: '📐', color: '#5ea5ff', progress: '72%', desc: 'معادلات، جبر، هندسة، وقوانين رياضية ممتعة.' },
+        { name: 'علوم', emoji: '🔬', color: '#7de7b2', progress: '68%', desc: 'تجارب، كائنات، طاقة، وعلوم الحياة بطريقة سهلة.' },
+        { name: 'عربي', emoji: '📖', color: '#f4c76b', progress: '80%', desc: 'قواعد، نصوص، تحليل، وكتابة بأسلوب احترافي.' },
+        { name: 'دراسات', emoji: '🌍', color: '#7ea7ff', progress: '60%', desc: 'تاريخ، جغرافيا، ومفاهيم مجتمعية واضحة.' },
+        { name: 'إنجليزي', emoji: '🇬🇧', color: '#f5a0d7', progress: '74%', desc: 'مفردات، قواعد، واستيعاب نصوص يومية.' },
+        { name: 'فنون', emoji: '🎨', color: '#b18cff', progress: '58%', desc: 'إبداع، تصميم، والرسم بأسلوب يطور الخيال.' }
+      ];
+
+      const subjectGrid = document.getElementById('subjectGrid');
+      subjectGrid.innerHTML = subjects.map((s, index) => `
+        <article class="subject-card" data-index="${index}" tabindex="0">
+          <div class="subject-icon" style="background: ${s.color}20; color: ${s.color};">${s.emoji}</div>
+          <h3>${s.name}</h3>
+          <p>${s.desc}</p>
+          <div class="subject-progress">
+            <span style="width: ${s.progress}; background: linear-gradient(90deg, ${s.color}, #ffd166);"></span>
+          </div>
+        </article>
+      `).join('');
+
+      document.querySelectorAll('.subject-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const idx = Number(card.dataset.index);
+          const subject = subjects[idx];
+          alert(`تم اختيار مادة: ${subject.name}\n${subject.desc}`);
+        });
+      });
+
+      const modals = {
+        authModal: document.getElementById('authModal'),
+        profileModal: document.getElementById('profileModal'),
+        chatModal: document.getElementById('chatModal')
+      };
+
+      function openModal(name) {
+        modals[name].classList.add('open');
+      }
+
+      function closeModal(name) {
+        modals[name].classList.remove('open');
+      }
+
+      document.getElementById('loginBtn').addEventListener('click', () => openModal('authModal'));
+      document.getElementById('startBtn').addEventListener('click', () => openModal('authModal'));
+      document.getElementById('heroStartBtn').addEventListener('click', () => openModal('authModal'));
+      document.getElementById('profileBtn').addEventListener('click', () => openModal('profileModal'));
+      document.getElementById('openChatBtn').addEventListener('click', () => openModal('chatModal'));
+
+      document.querySelectorAll('[data-close]').forEach((btn) => {
+        btn.addEventListener('click', () => closeModal(btn.dataset.close));
+      });
+
+      const modeButtons = document.querySelectorAll('[data-mode]');
+      const fullNameField = document.getElementById('fullNameField');
+      modeButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const isSignup = btn.dataset.mode === 'signup';
+          modeButtons.forEach((b) => b.classList.toggle('active', b === btn));
+          fullNameField.style.display = isSignup ? 'grid' : 'none';
+        });
+      });
+
+      document.getElementById('submitAuthBtn').addEventListener('click', () => {
+        closeModal('authModal');
+        alert('تم تسجيل الدخول بنجاح.');
+      });
+
+      document.getElementById('sendChatBtn').addEventListener('click', () => {
+        const input = document.getElementById('chatInput');
+        const value = input.value.trim();
+        if (!value) return;
+
+        const body = document.getElementById('chatBody');
+        const userMsg = document.createElement('div');
+        userMsg.className = 'msg user';
+        userMsg.textContent = value;
+        body.appendChild(userMsg);
+
+        const answer = document.createElement('div');
+        answer.className = 'msg ai';
+        answer.textContent = 'بالتأكيد! أستطيع مساعدتك في هذا الموضوع. إذا أردت، يمكنني شرح الفكرة خطوة بخطوة أو إعطاء مثال تدريبي سريع.';
+        body.appendChild(answer);
+
+        input.value = '';
+        body.scrollTop = body.scrollHeight;
+      });
+
+      document.getElementById('chatInput').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          document.getElementById('sendChatBtn').click();
+        }
+      });
+    </script>
+  </body>
+</html>
