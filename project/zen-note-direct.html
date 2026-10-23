@@ -1,0 +1,989 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>زين نوت | منصة تعليمية ذكية</title>
+    <meta name="description" content="منصة تعليمية عربية للطلاب مع مواد دراسية، مدرس ذكي، نقاط ومكافآت." />
+    <style>
+      :root {
+        --bg: #071423;
+        --bg-2: #0d1b2a;
+        --panel: rgba(15, 22, 36, 0.9);
+        --panel-soft: rgba(20, 30, 46, 0.76);
+        --card: rgba(30, 41, 59, 0.9);
+        --line: rgba(255,255,255,0.08);
+        --white: #edf3ff;
+        --muted: #b8c3d9;
+        --blue: #5ba9ff;
+        --gold: #f2c35b;
+        --green: #6ee7b7;
+        --pink: #f472b6;
+        --purple: #a78bfa;
+        --red: #ff7b7b;
+        --shadow: 0 20px 45px rgba(0,0,0,0.35);
+      }
+
+      * { box-sizing: border-box; }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        font-family: "Tahoma", "Segoe UI", sans-serif;
+        background:
+          radial-gradient(circle at top right, rgba(91,169,255,0.18), transparent 25%),
+          radial-gradient(circle at bottom left, rgba(242,195,91,0.14), transparent 25%),
+          var(--bg);
+        color: var(--white);
+      }
+
+      a { color: inherit; text-decoration: none; }
+      button, input, select { font: inherit; }
+
+      .container {
+        max-width: 1180px;
+        margin: 0 auto;
+        padding: 0 18px;
+      }
+
+      .topbar {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        backdrop-filter: blur(16px);
+        background: rgba(7,20,35,0.78);
+        border-bottom: 1px solid var(--line);
+      }
+
+      .topbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 18px;
+        min-height: 78px;
+      }
+
+      .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        font-weight: 800;
+      }
+
+      .brand-mark {
+        width: 42px;
+        height: 42px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--gold), #ff9d57);
+        position: relative;
+        box-shadow: 0 12px 30px rgba(242,195,91,0.35);
+      }
+
+      .brand-mark::before {
+        content: "Z";
+        position: absolute;
+        inset: 0;
+        display: grid;
+        place-items: center;
+        color: #0d1725;
+        font-weight: 900;
+      }
+
+      .nav {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+      }
+
+      .nav a {
+        padding: 10px 14px;
+        color: var(--muted);
+        border-radius: 10px;
+        transition: 0.2s ease;
+      }
+
+      .nav a:hover,
+      .nav a.active {
+        background: rgba(255,255,255,0.05);
+        color: var(--white);
+      }
+
+      .actions {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .btn {
+        border: 0;
+        border-radius: 12px;
+        padding: 12px 16px;
+        cursor: pointer;
+        transition: transform 0.2s ease, opacity 0.2s ease;
+        font-weight: 700;
+      }
+
+      .btn:hover { transform: translateY(-1px); }
+      .btn:active { transform: translateY(0); }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--gold), #f59e0b);
+        color: #102033;
+        box-shadow: 0 14px 30px rgba(242,195,91,0.3);
+      }
+
+      .btn-secondary {
+        background: rgba(255,255,255,0.05);
+        color: var(--white);
+        border: 1px solid var(--line);
+      }
+
+      .hero {
+        padding: 54px 0 28px;
+      }
+
+      .hero-card {
+        position: relative;
+        background: linear-gradient(135deg, rgba(14,31,52,0.95), rgba(14,29,38,0.92));
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 40px 26px;
+        box-shadow: var(--shadow);
+        overflow: hidden;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(242,195,91,0.12);
+        color: var(--gold);
+        border: 1px solid rgba(242,195,91,0.18);
+        border-radius: 999px;
+        padding: 8px 14px;
+        font-size: 13px;
+      }
+
+      h1 {
+        margin: 18px 0 14px;
+        font-size: clamp(2.1rem, 4vw, 4.3rem);
+        line-height: 1.2;
+      }
+
+      .hero-sub {
+        font-size: 1.1rem;
+        color: var(--muted);
+        max-width: 760px;
+        line-height: 1.9;
+      }
+
+      .hero-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 26px;
+      }
+
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(120px, 1fr));
+        gap: 18px;
+        margin-top: 30px;
+      }
+
+      .stat {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+        border-radius: 18px;
+        padding: 20px 16px;
+        text-align: center;
+      }
+
+      .stat strong {
+        display: block;
+        font-size: 1.7rem;
+        margin-bottom: 8px;
+      }
+
+      .stat span {
+        color: var(--muted);
+        font-size: 0.82rem;
+      }
+
+      section {
+        padding: 28px 0;
+      }
+
+      .section-head {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        gap: 14px;
+        margin-bottom: 16px;
+      }
+
+      .section-head h2 {
+        margin: 0;
+        font-size: 2rem;
+      }
+
+      .section-head p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      .subject-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(210px, 1fr));
+        gap: 18px;
+      }
+
+      .subject-card {
+        background: linear-gradient(160deg, rgba(17, 26, 39, 0.9), rgba(20, 30, 44, 0.9));
+        border: 1px solid var(--line);
+        border-radius: 20px;
+        padding: 18px;
+        cursor: pointer;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        box-shadow: 0 10px 22px rgba(0,0,0,0.18);
+      }
+
+      .subject-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 18px 32px rgba(0,0,0,0.22);
+      }
+
+      .subject-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: grid;
+        place-items: center;
+        font-size: 1.8rem;
+        margin-bottom: 16px;
+      }
+
+      .subject-card h3 {
+        margin: 0 0 8px;
+        font-size: 1.3rem;
+      }
+
+      .subject-card p {
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .subject-progress {
+        margin-top: 18px;
+        height: 10px;
+        background: rgba(255,255,255,0.06);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .subject-progress span {
+        display: block;
+        height: 100%;
+        border-radius: 999px;
+      }
+
+      .feature-banner {
+        background: linear-gradient(135deg, rgba(69, 122, 255, 0.14), rgba(242, 195, 91, 0.1), rgba(18,23,34,0.82));
+        border: 1px solid var(--line);
+        border-radius: 28px;
+        padding: 30px 24px;
+        text-align: center;
+      }
+
+      .feature-badge {
+        width: 74px;
+        height: 74px;
+        border-radius: 22px;
+        background: linear-gradient(135deg, var(--gold), #ff8a65);
+        color: #111827;
+        display: grid;
+        place-items: center;
+        margin: 0 auto 18px;
+        font-size: 2rem;
+        box-shadow: 0 18px 30px rgba(242,195,91,0.22);
+      }
+
+      .feature-banner h2 {
+        margin: 0 0 10px;
+        font-size: clamp(1.8rem, 2vw, 2.5rem);
+      }
+
+      .feature-banner p {
+        margin: 0 auto;
+        max-width: 720px;
+        color: var(--muted);
+        line-height: 1.8;
+      }
+
+      .feature-pills {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        margin-top: 22px;
+      }
+
+      .feature-pills span {
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 9px 14px;
+        color: var(--white);
+      }
+
+      .dashboard {
+        display: grid;
+        grid-template-columns: 1.2fr 0.8fr;
+        gap: 18px;
+      }
+
+      .panel {
+        background: var(--panel-soft);
+        border: 1px solid var(--line);
+        border-radius: 22px;
+        padding: 22px;
+      }
+
+      .zodiac-box {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+      }
+
+      .zodiac-badge {
+        width: 70px;
+        height: 70px;
+        border-radius: 20px;
+        background: linear-gradient(135deg, rgba(91,169,255,0.2), rgba(242,195,91,0.2));
+        display: grid;
+        place-items: center;
+        font-size: 2.2rem;
+        border: 1px solid rgba(255,255,255,0.08);
+      }
+
+      .points-box {
+        margin-top: 16px;
+      }
+
+      .points-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 12px;
+      }
+
+      .bar-wrap {
+        height: 14px;
+        background: rgba(255,255,255,0.06);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .bar {
+        width: 76%;
+        height: 100%;
+        background: linear-gradient(90deg, var(--gold), #ff9d57);
+        border-radius: inherit;
+      }
+
+      .mini-list {
+        margin-top: 18px;
+        display: grid;
+        gap: 12px;
+      }
+
+      .mini-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+        border-radius: 14px;
+        padding: 12px 14px;
+      }
+
+      .mini-item .tag {
+        width: 32px;
+        height: 32px;
+        border-radius: 10px;
+        display: grid;
+        place-items: center;
+        background: rgba(91,169,255,0.12);
+      }
+
+      .footer {
+        padding: 32px 0 50px;
+        color: var(--muted);
+      }
+
+      .footer-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        flex-wrap: wrap;
+        border-top: 1px solid var(--line);
+        padding-top: 18px;
+      }
+
+      .modal {
+        position: fixed;
+        inset: 0;
+        background: rgba(3,8,15,0.76);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 18px;
+        z-index: 100;
+      }
+
+      .modal.open {
+        display: flex;
+      }
+
+      .modal-panel {
+        width: min(560px, 100%);
+        background: linear-gradient(180deg, rgba(17,22,31,0.98), rgba(11,19,29,0.98));
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        overflow: hidden;
+        box-shadow: var(--shadow);
+      }
+
+      .modal-head {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 12px;
+        padding: 18px 22px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .modal-body {
+        padding: 22px;
+      }
+
+      .switch {
+        display: flex;
+        gap: 8px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 6px;
+        margin-bottom: 18px;
+      }
+
+      .switch button {
+        flex: 1;
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: transparent;
+        color: var(--muted);
+        border: 0;
+        cursor: pointer;
+        font-weight: 700;
+      }
+
+      .switch button.active {
+        background: linear-gradient(135deg, var(--blue), #7a8dff);
+        color: white;
+      }
+
+      .field {
+        display: grid;
+        gap: 8px;
+        margin-bottom: 16px;
+      }
+
+      .field label {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+
+      .field input,
+      .field select {
+        width: 100%;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.03);
+        color: var(--white);
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+
+      .field input::placeholder { color: rgba(255,255,255,0.45); }
+
+      .profile-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(150px, 1fr));
+        gap: 16px;
+      }
+
+      .chat-box {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        height: 520px;
+      }
+
+      .chat-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0 0 12px;
+      }
+
+      .chat-body {
+        background: rgba(255,255,255,0.02);
+        border: 1px solid var(--line);
+        border-radius: 16px;
+        padding: 14px;
+        overflow: auto;
+        display: grid;
+        gap: 12px;
+      }
+
+      .msg {
+        max-width: 82%;
+        padding: 10px 12px;
+        border-radius: 14px;
+        line-height: 1.8;
+      }
+
+      .msg.ai {
+        background: rgba(91,169,255,0.1);
+        border: 1px solid rgba(91,169,255,0.2);
+        margin-left: auto;
+      }
+
+      .msg.user {
+        background: rgba(242,195,91,0.11);
+        border: 1px solid rgba(242,195,91,0.2);
+      }
+
+      .chat-compose {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+      }
+
+      .chat-compose input {
+        flex: 1;
+        border: 1px solid var(--line);
+        background: rgba(255,255,255,0.03);
+        color: var(--white);
+        border-radius: 12px;
+        padding: 12px 14px;
+      }
+
+      .small {
+        color: var(--muted);
+        font-size: 0.8rem;
+      }
+
+      @media (max-width: 920px) {
+        .subject-grid {
+          grid-template-columns: repeat(2, minmax(180px, 1fr));
+        }
+
+        .dashboard {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 640px) {
+        .topbar-inner {
+          flex-wrap: wrap;
+          gap: 10px;
+          padding: 12px 0;
+        }
+
+        .nav {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .actions {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .subject-grid,
+        .profile-grid,
+        .stats {
+          grid-template-columns: 1fr;
+        }
+
+        .section-head {
+          display: block;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="container topbar-inner">
+        <div class="brand">
+          <div class="brand-mark" aria-hidden="true"></div>
+          <div>
+            <div style="font-size: 1.15rem;">زين نوت</div>
+            <div style="font-size: 0.7rem; color: var(--muted);">منصة تعليمية ذكية</div>
+          </div>
+        </div>
+
+        <nav class="nav" aria-label="التنقل الرئيسي">
+          <a href="#home" class="active">الرئيسية</a>
+          <a href="#subjects">المواد</a>
+          <a href="#ai-teacher">المدرس الذكي</a>
+          <a href="#points">نقاطي</a>
+          <a href="#account">حسابي</a>
+        </nav>
+
+        <div class="actions">
+          <button class="btn btn-secondary" id="loginBtn">تسجيل الدخول</button>
+          <button class="btn btn-primary" id="startBtn">ابدأ الآن</button>
+        </div>
+      </div>
+    </header>
+
+    <main id="home" class="container">
+      <section class="hero">
+        <div class="hero-card">
+          <div class="hero-badge">🎓 المنصة حالياً للصف الأول الإعدادي</div>
+          <h1>تعلم بمتعة، وارتقِ بثقة.</h1>
+          <p class="hero-sub">
+            منصة زين نوت التعليمية تتيح لك دروساً ممتعة، اختبارات ذكية، مدرس شخصي، ومكافآت تحفّزك
+            على التفوق. كل شيء مصمّم ليخدم رحلة التعلم بطريقة بسيطة واحترافية.
+          </p>
+
+          <div class="hero-actions">
+            <button class="btn btn-primary" id="heroStartBtn">ابدأ رحلتك</button>
+            <button class="btn btn-secondary" id="profileBtn">إعداد الملف الشخصي</button>
+          </div>
+
+          <div class="stats">
+            <div class="stat">
+              <strong>6</strong>
+              <span>مواد دراسية</span>
+            </div>
+            <div class="stat">
+              <strong>112</strong>
+              <span>دروس متاحة</span>
+            </div>
+            <div class="stat">
+              <strong>15</strong>
+              <span>مسابقات</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="subjects">
+        <div class="section-head">
+          <div>
+            <h2>المواد الدراسية</h2>
+            <p>اختر المادة المناسبة لك وابدأ التعلم الآن</p>
+          </div>
+          <button class="btn btn-secondary">عرض الكل</button>
+        </div>
+
+        <div class="subject-grid" id="subjectGrid"></div>
+      </section>
+
+      <section id="ai-teacher">
+        <div class="feature-banner">
+          <div class="feature-badge">🤖</div>
+          <h2>المدرس الذكي</h2>
+          <p>
+            اسأل عن أي درس، شرح، مسألة، أو مراجعة، وستحصل على إجابة مباشرة ومبسطة، مع أسلوب
+            تعليمي يساعدك على فهم المعلومة بسرعة.
+          </p>
+          <div class="feature-pills">
+            <span>شرح فوري</span>
+            <span>أسئلة وأجوبة</span>
+            <span>مراجعة ذكية</span>
+          </div>
+          <div class="hero-actions" style="justify-content: center; ">
+            <button class="btn btn-primary" id="openChatBtn">ابدأ المحادثة</button>
+          </div>
+        </div>
+      </section>
+
+      <section id="points" class="dashboard">
+        <div class="panel">
+          <div class="section-head" style="margin-bottom: 12px;">
+            <div>
+              <h2 style="font-size: 1.6rem;">ملفي الشخصي</h2>
+            </div>
+          </div>
+
+          <div class="zodiac-box">
+            <div>
+              <div style="color: var(--muted); font-size: .85rem;">الاسم</div>
+              <div style="font-size: 1.45rem; font-weight: 800; margin-top: 6px;">أحمد محمد</div>
+            </div>
+            <div class="zodiac-badge">♒</div>
+          </div>
+
+          <div class="points-box">
+            <div class="points-top">
+              <span>نقاطي</span>
+              <strong>1,240</strong>
+            </div>
+            <div class="bar-wrap"><div class="bar"></div></div>
+            <div class="small" style="margin-top: 10px;">76% من هدف المستوى التالي</div>
+          </div>
+        </div>
+
+        <div class="panel" id="account">
+          <div class="section-head" style="margin-bottom: 12px;">
+            <div>
+              <h2 style="font-size: 1.6rem;">أحدث النشاط</h2>
+            </div>
+          </div>
+
+          <div class="mini-list">
+            <div class="mini-item">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="tag">📘</div>
+                <div>
+                  <strong>حل درس</strong><br>
+                  <span class="small">رياضيات</span>
+                </div>
+              </div>
+              <span>+60</span>
+            </div>
+
+            <div class="mini-item">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="tag">🏆</div>
+                <div>
+                  <strong>منافسة</strong><br>
+                  <span class="small">لغة عربية</span>
+                </div>
+              </div>
+              <span>+120</span>
+            </div>
+
+            <div class="mini-item">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <div class="tag">💡</div>
+                <div>
+                  <strong>سؤال جديد</strong><br>
+                  <span class="small">المدرس الذكي</span>
+                </div>
+              </div>
+              <span>+25</span>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer-inner">
+        <div>© 2026 زين نوت — جميع الحقوق محفوظة</div>
+        <div>منصة تعليمية عربية متكاملة</div>
+      </div>
+    </footer>
+
+    <div class="modal" id="authModal" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-head">
+          <h3 style="margin: 0;">تسجيل الدخول</h3>
+          <button class="btn btn-secondary" data-close="authModal" style="width: auto;">إغلاق</button>
+        </div>
+        <div class="modal-body">
+          <div class="switch">
+            <button class="active" data-mode="login">دخول</button>
+            <button data-mode="signup">تسجيل</button>
+          </div>
+
+          <div class="field" id="fullNameField" style="display: none;">
+            <label>الاسم الكامل</label>
+            <input type="text" placeholder="اكتب اسمك بالكامل" />
+          </div>
+
+          <div class="field">
+            <label>البريد الإلكتروني</label>
+            <input type="email" placeholder="name@example.com" />
+          </div>
+
+          <div class="field">
+            <label>كلمة المرور</label>
+            <input type="password" placeholder="••••••••" />
+          </div>
+
+          <button class="btn btn-primary" style="width: 100%; margin-top: 10px;" id="submitAuthBtn">تأكيد</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="profileModal" aria-hidden="true">
+      <div class="modal-panel">
+        <div class="modal-head">
+          <h3 style="margin: 0;">إعداد الملف الشخصي</h3>
+          <button class="btn btn-secondary" data-close="profileModal" style="width: auto;">إغلاق</button>
+        </div>
+        <div class="modal-body">
+          <div class="profile-grid">
+            <div class="field">
+              <label>الاسم الكامل</label>
+              <input type="text" value="أحمد محمد" />
+            </div>
+            <div class="field">
+              <label>الصف الدراسي</label>
+              <select>
+                <option>الأول الإعدادي</option>
+                <option>الثاني الإعدادي</option>
+                <option>الثالث الإعدادي</option>
+              </select>
+            </div>
+            <div class="field">
+              <label>تاريخ الميلاد</label>
+              <input type="date" value="2014-05-12" />
+            </div>
+            <div class="field">
+              <label>نوع الحساب</label>
+              <select>
+                <option>طالب</option>
+                <option>ولي أمر</option>
+              </select>
+            </div>
+          </div>
+          <button class="btn btn-primary" style="width: 100%; margin-top: 18px;">حفظ البيانات</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal" id="chatModal" aria-hidden="true">
+      <div class="modal-panel" style="width: min(720px, 100%);">
+        <div class="modal-head">
+          <h3 style="margin: 0;">المدرس الذكي</h3>
+          <button class="btn btn-secondary" data-close="chatModal" style="width: auto;">إغلاق</button>
+        </div>
+        <div class="modal-body chat-box">
+          <div class="chat-header">
+            <div>محادثة تعليمية ذكية</div>
+            <div class="small">متصل الآن</div>
+          </div>
+
+          <div class="chat-body" id="chatBody">
+            <div class="msg ai">أهلاً! أنا المدرّس الذكي. كيف أستطيع مساعدتك اليوم؟</div>
+            <div class="msg user">أريد شرح درس الجبر البسيط.</div>
+            <div class="msg ai">بالتأكيد! الجبر يعني استخدام الرموز بدل الأرقام في بعض المعادلات. مثال: 2x + 3 = 11 → اطرح 3 ثم اقسم على 2 → x = 4.</div>
+          </div>
+
+          <div class="chat-compose">
+            <input type="text" id="chatInput" placeholder="اكتب سؤالك هنا..." />
+            <button class="btn btn-primary" id="sendChatBtn">إرسال</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const subjects = [
+        { name: 'رياضيات', emoji: '📐', color: '#5ba9ff', progress: '72%', desc: 'معادلات، جبر، هندسة، وقوانين رياضية ممتعة.' },
+        { name: 'علوم', emoji: '🔬', color: '#6ee7b7', progress: '68%', desc: 'تجارب، كائنات، طاقة، وعلوم الحياة بطريقة سهلة.' },
+        { name: 'عربي', emoji: '📖', color: '#f2c35b', progress: '80%', desc: 'قواعد، نصوص، تحليل، وكتابة بأسلوب احترافي.' },
+        { name: 'دراسات', emoji: '🌍', color: '#7dd3fc', progress: '60%', desc: 'تاريخ، جغرافيا، ومفاهيم مجتمعية واضحة.' },
+        { name: 'إنجليزي', emoji: '🇬🇧', color: '#f472b6', progress: '74%', desc: 'مفردات، قواعد، واستيعاب نصوص يومية.' },
+        { name: 'فنون', emoji: '🎨', color: '#a78bfa', progress: '58%', desc: 'إبداع، تصميم، والرسم بأسلوب يطور الخيال.' }
+      ];
+
+      const subjectGrid = document.getElementById('subjectGrid');
+      subjectGrid.innerHTML = subjects.map((s, index) => `
+        <article class="subject-card" tabindex="0" data-index="${index}">
+          <div class="subject-icon" style="background: ${s.color}20; color: ${s.color};">${s.emoji}</div>
+          <h3>${s.name}</h3>
+          <p>${s.desc}</p>
+          <div class="subject-progress"><span style="width: ${s.progress}; background: linear-gradient(90deg, ${s.color}, #ffd166);"></span></div>
+        </article>
+      `).join('');
+
+      document.querySelectorAll('.subject-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const idx = Number(card.dataset.index);
+          const subject = subjects[idx];
+          alert(`تم اختيار مادة: ${subject.name}\n${subject.desc}`);
+        });
+      });
+
+      const modals = {
+        authModal: document.getElementById('authModal'),
+        profileModal: document.getElementById('profileModal'),
+        chatModal: document.getElementById('chatModal')
+      };
+
+      function openModal(name) {
+        modals[name].classList.add('open');
+      }
+
+      function closeModal(name) {
+        modals[name].classList.remove('open');
+      }
+
+      document.getElementById('loginBtn').addEventListener('click', () => openModal('authModal'));
+      document.getElementById('startBtn').addEventListener('click', () => openModal('authModal'));
+      document.getElementById('heroStartBtn').addEventListener('click', () => openModal('authModal'));
+      document.getElementById('profileBtn').addEventListener('click', () => openModal('profileModal'));
+      document.getElementById('openChatBtn').addEventListener('click', () => openModal('chatModal'));
+
+      document.querySelectorAll('[data-close]').forEach(btn => {
+        btn.addEventListener('click', () => closeModal(btn.dataset.close));
+      });
+
+      const modeButtons = document.querySelectorAll('[data-mode]');
+      const fullNameField = document.getElementById('fullNameField');
+      modeButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          const isSignup = btn.dataset.mode === 'signup';
+          modeButtons.forEach(b => b.classList.toggle('active', b === btn));
+          fullNameField.style.display = isSignup ? 'grid' : 'none';
+        });
+      });
+
+      document.getElementById('submitAuthBtn').addEventListener('click', () => {
+        closeModal('authModal');
+        alert('تم تسجيل الدخول بنجاح.');
+      });
+
+      document.getElementById('sendChatBtn').addEventListener('click', () => {
+        const input = document.getElementById('chatInput');
+        const value = input.value.trim();
+        if (!value) return;
+
+        const body = document.getElementById('chatBody');
+        const userMsg = document.createElement('div');
+        userMsg.className = 'msg user';
+        userMsg.textContent = value;
+        body.appendChild(userMsg);
+
+        const answer = document.createElement('div');
+        answer.className = 'msg ai';
+        answer.textContent = 'بالتأكيد! أستطيع مساعدتك في هذا الموضوع. إذا أردت، يمكنني شرح الفكرة خطوة بخطوة أو إعطاء مثال تدريبي سريع.';
+        body.appendChild(answer);
+
+        input.value = '';
+        body.scrollTop = body.scrollHeight;
+      });
+
+      document.getElementById('chatInput').addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+          document.getElementById('sendChatBtn').click();
+        }
+      });
+    </script>
+  </body>
+</html>
